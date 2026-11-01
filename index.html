@@ -87,7 +87,7 @@ main{padding:24px 27px 45px;min-width:0}.top{display:flex;justify-content:space-
 <div class="toast" id="toast"></div>
 
 <script>
-const API = 'https://rifpublis-api.alif-kam-12.workers.dev';
+const API = window.location.origin;
 const $ = id => document.getElementById(id);
 const now = new Date();
 const pad = n => String(n).padStart(2,'0');
