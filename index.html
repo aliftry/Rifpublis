@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171a17"><meta name="description" content="Rifpublis content publishing workspace"><title>Rifpublis</title>
+<style>
+:root{--bg:#171a17;--panel:#20251f;--panel2:#272e25;--line:#394235;--text:#eef1e9;--muted:#9ca696;--lime:#b9ed52;--limebg:#344326;--amber:#e6c47d;--red:#df9991}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,system-ui,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{max-width:1480px;margin:auto;min-height:100vh;display:grid;grid-template-columns:215px 1fr}
+aside{background:#191d19;border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;gap:25px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:19px;letter-spacing:-.8px;padding:0 6px}.logo{height:32px;width:32px;background:var(--lime);color:#1a2114;border-radius:9px;display:grid;place-items:center;font-weight:950}
+.workspace{display:flex;align-items:center;gap:9px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}.avatar{width:28px;height:28px;border-radius:8px;background:#3a4931;color:var(--lime);display:grid;place-items:center;font-weight:800}.workspace b{font-size:11px}.workspace small{display:block;color:var(--muted);font-size:9px}
+.navtitle{font-size:9px;letter-spacing:1.2px;color:#828c7c;font-weight:800;margin:0 9px 7px}nav{display:grid;gap:4px}nav button{border:0;background:none;color:#c0c8b9;text-align:left;border-radius:8px;padding:10px;font-size:12px;font-weight:650}nav button.active,nav button:hover{background:var(--limebg);color:var(--lime)}
+.backup-mini{padding:11px;border:1px solid var(--line);border-radius:9px;background:var(--panel);font-size:10px}.backup-mini-title{font-size:9px;letter-spacing:1px;color:var(--muted);font-weight:850}.backup-mini-status{margin:6px 0 9px;color:var(--muted)}.backup-mini .secondary{width:100%;font-size:9px}.sideinfo{margin-top:auto;padding:11px;border:1px solid var(--line);border-radius:9px;color:var(--muted);font-size:10px}.sideinfo b{color:var(--lime)}
+main{padding:24px 27px 45px;min-width:0}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}.crumb{font-size:11px;color:var(--muted)}.crumb b{color:var(--text)}.topright{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:700}.backup-top{white-space:nowrap}.iconbtn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:8px;width:33px;height:33px}
+.intro{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:18px}.eyebrow{font-size:9px;letter-spacing:1.3px;color:var(--lime);font-weight:850}h1{font-size:27px;letter-spacing:-1px;margin:5px 0}.sub{font-size:12px;color:var(--muted);margin:0}
+.primary{background:var(--lime);color:#20271a;border:0;border-radius:8px;padding:10px 14px;font-size:11px;font-weight:850}.primary:hover{filter:brightness(1.07)}.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px 11px;font-size:10px;font-weight:700}.danger{color:var(--red)!important}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}.stat label{font-size:10px;color:var(--muted)}.stat strong{display:block;font-size:23px;margin:4px 0 0}.stat small{font-size:9px;color:var(--muted)}
+.planner{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.8fr);gap:13px;align-items:start}.panel{background:var(--panel);border:1px solid var(--line);border-radius:11px;overflow:hidden;margin-bottom:13px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:9px;padding:12px 14px;border-bottom:1px solid var(--line)}.panelhead h2{font-size:12px;margin:0;font-weight:850}.panelhead p{font-size:10px;color:var(--muted);margin:3px 0 0}
+.monthnav{display:flex;align-items:center;gap:6px}.monthnav strong{font-size:11px;min-width:118px;text-align:center}.arrow{width:27px;height:27px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:7px}
+.calwrap{padding:11px 13px}.legend{display:flex;gap:13px;flex-wrap:wrap;color:var(--muted);font-size:9px;margin-bottom:9px}.legend i{display:inline-block;width:8px;height:8px;margin-right:5px;vertical-align:middle}.legend .todaykey{border:1.5px solid var(--lime);border-radius:3px;background:transparent}.legend .schedulekey{border-radius:50%;background:var(--red);box-shadow:0 0 0 2px #df999122}
+.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.weekday{text-align:center;color:#8a9484;font-size:9px;padding:4px}.day{min-height:63px;background:#252b23;border:1px solid transparent;color:var(--text);border-radius:7px;text-align:left;padding:6px;display:flex;flex-direction:column;gap:4px}.day:hover{border-color:#718b50}.day.out{opacity:.27;background:transparent}.day.today{border:1.5px solid var(--lime);background:#2b3327}.day.today .daynum{color:var(--lime)}.day.selected{background:#35462a;box-shadow:inset 0 0 0 1px #819d5c}.day.today.selected{border-color:var(--lime);box-shadow:inset 0 0 0 1px var(--lime)}.daynum{font-size:10px;font-weight:800}.today .daynum{color:var(--lime)}.dayhint{display:flex;gap:3px;align-items:center}.dayhint i{height:6px;width:6px;border-radius:50%;background:var(--red);box-shadow:0 0 0 2px #df999122}.dayhint span{font-size:8px;color:#c6d8ae}
+.agenda{padding:10px 13px}.selectedlabel{font-size:15px;font-weight:850}.empty{padding:23px 8px;text-align:center;color:var(--muted);font-size:11px}.empty b{display:block;color:var(--text);font-size:12px;margin-bottom:4px}
+.item{display:grid;grid-template-columns:45px 1fr;gap:8px;padding:10px 0;border-bottom:1px solid #343b31}.item:last-child{border:0}.time{font-size:10px;color:var(--lime);font-weight:850}.itemtitle{font-size:11px;font-weight:750}.meta{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:5px}.tag{font-size:8px;color:#cbd5c1;border:1px solid #4d5a45;padding:2px 5px;border-radius:4px}.state{font-size:8px;padding:3px 6px;border-radius:15px;background:#402d2a;color:var(--red)}.state.done{background:#304027;color:var(--lime)}.state.uploading{background:#3a422c;color:var(--lime)}
+.itemactions{display:flex;gap:5px;margin-top:7px}.itemactions button{border:1px solid var(--line);background:transparent;color:#cbd3c3;border-radius:5px;padding:4px 7px;font-size:9px}
+.agendaadd{width:100%;margin-top:9px}
+.tablefilters{display:flex;gap:4px}.filter{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:6px;padding:5px 7px;font-size:9px}.filter.active{background:var(--limebg);border-color:#596d43;color:var(--lime)}
+.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:550px}th{text-align:left;padding:10px 12px;color:#899384;font-size:9px;letter-spacing:.5px;border-bottom:1px solid var(--line)}td{padding:10px 12px;font-size:10px;border-bottom:1px solid #30372e}tr:last-child td{border:0}
+.filecell{display:flex;align-items:center;gap:8px}.thumb{width:48px;height:34px;object-fit:cover;background:#394432;border-radius:5px;display:block;flex:0 0 auto}.filecell b{display:block;font-size:10px}.filecell small{font-size:9px;color:var(--muted)}
+.badge{font-size:8px;padding:4px 6px;border-radius:15px;background:#402d2a;color:var(--red)}.badge.done{background:#304027;color:var(--lime)}.badge.failed{background:#402d2a;color:var(--red)}
+.modal{width:min(470px,calc(100% - 22px));border:1px solid #536248;border-radius:12px;background:#20251f;color:var(--text);padding:18px;box-shadow:0 20px 60px #0009}.modal::backdrop{background:#080b08cc}.modalhead{display:flex;justify-content:space-between;align-items:center}.modalhead h2{font-size:15px;margin:0}.close{border:0;background:none;color:var(--muted);font-size:20px}
+.field{margin:12px 0}.field label{display:block;color:var(--muted);font-size:10px;margin-bottom:5px}.field input,.field select{width:100%;background:#171b16;border:1px solid var(--line);color:var(--text);border-radius:7px;padding:9px;font-size:11px}.filepick{border:1px dashed #68785a;border-radius:8px;padding:12px;color:var(--muted);font-size:10px}.filepick input{display:block;margin-top:7px;max-width:100%}.checks{display:flex;gap:13px;flex-wrap:wrap}.checks label{color:var(--text);font-size:10px;display:flex;align-items:center;gap:5px}.hint{font-size:9px;color:var(--muted);margin-top:4px}.modalactions{display:flex;justify-content:flex-end;gap:7px;margin-top:16px}
+.google-explain{padding:12px;background:#171b16;border:1px solid var(--line);border-radius:8px;font-size:10px;color:var(--muted)}.google-explain b{color:var(--text)}.google-explain ul{margin:7px 0 0;padding-left:17px}.google-explain li{margin:3px 0}.google-state{font-size:10px;margin:12px 0;color:var(--muted)}.google-button{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:11px;border-radius:8px;background:#f7f7f7;color:#202124;border:1px solid #dadce0;font-size:11px;font-weight:750}.google-g{font-size:17px;font-weight:900;color:#4285f4}.progress{height:5px;background:#3b4435;border-radius:8px;overflow:hidden;margin-top:9px}.progress i{height:100%;width:0;background:var(--lime);display:block;transition:width .2s}
+.toast{position:fixed;right:15px;bottom:15px;background:#304027;border:1px solid #647d49;color:#e4f2d4;padding:10px 13px;border-radius:8px;font-size:11px;display:none;z-index:10}
+@media(max-width:950px){.app{grid-template-columns:180px 1fr}main{padding:20px 17px}.planner{grid-template-columns:1fr}.rightcol{display:grid;grid-template-columns:1fr 1fr;gap:10px}}
+@media(max-width:650px){.app{display:block}aside{display:none}main{padding:14px 11px 30px}.topright{gap:6px;font-size:10px}.backup-top{padding:7px 8px;font-size:9px}.top{margin-bottom:18px}.intro{display:block}.intro .primary{width:100%;margin-top:12px}.stats{grid-template-columns:repeat(2,1fr);gap:7px}.stat{padding:10px}.stat strong{font-size:21px}.planner{display:block}.calendar{gap:3px}.day{min-height:49px;padding:5px 4px}.dayhint span{display:none}.rightcol{display:block}.panelhead{padding:10px}.monthnav strong{min-width:105px}.tablefilters{gap:3px}.filter{padding:5px 6px}}
+.connection{font-size:10px;color:var(--muted)}.connection.good{color:var(--lime)}.connection.warn{color:var(--amber)}[hidden]{display:none!important}
+</style></head>
+
+  <body>
+<div class="app">
+<aside>
+ <div class="brand"><div class="logo">R</div>rifpublis</div>
+ <div class="workspace"><div class="avatar">R</div><div><b>Rifpublis Workspace</b><small>CONTENT WORKSPACE</small></div></div>
+ <div><div class="navtitle">MENU</div><nav><button class="active">▦　Dashboard</button><button onclick="scrollToId('allContent')">▤　Semua konten</button><button onclick="scrollToId('calendarPanel')">▦　Kalender</button><button onclick="scrollToId('allContent')">↗　Riwayat</button></nav></div>
+ <div><div class="navtitle">AKUN</div><nav><button onclick="toast('Pengaturan akun platform akan tersedia setelah OAuth masing-masing platform dibuat.')">◎　Platform</button><button onclick="openGoogleBackup()">◉　Akun Google</button><button onclick="toast('Pengaturan workspace belum tersedia.')">⚙　Pengaturan</button></nav></div>
+ <div class="backup-mini"><div class="backup-mini-title">STATUS SISTEM</div><div class="backup-mini-status" id="apiStatus">Memeriksa API…</div><div class="backup-mini-status" id="loginStatus">Memeriksa sesi…</div><button class="secondary" onclick="checkBackend()">Periksa koneksi</button></div><div class="sideinfo"><b>RIFPUBLIS WORKSPACE</b><br>Mode aplikasi tanpa data contoh. Fitur yang belum terhubung tidak akan disimulasikan.</div>
+</aside>
+<main>
+ <div class="top"><div class="crumb">Workspace / <b>Dashboard</b></div><div class="topright"><span class="connection" id="apiStatusTop">Cloud workspace</span><button class="secondary backup-top" id="loginButton">Login dengan Google</button><button class="secondary" id="logoutButton" hidden>Logout</button><div class="avatar" id="userAvatar">R</div><span id="userLabel">Rifpublis</span></div></div>
+ <div class="intro"><div><div class="eyebrow">CONTENT WORKSPACE</div><h1>Jadwal konten</h1><p class="sub">Kelola kalender publikasi dan status konten dari satu workspace.</p></div><button class="primary" onclick="openAdd()">＋ Tambah konten</button></div>
+ <section class="stats">
+  <div class="stat"><label>Total konten</label><strong id="total">0</strong><small>Semua video</small></div>
+  <div class="stat"><label>Akan dipublikasikan</label><strong id="waiting">0</strong><small>Masuk antrean</small></div>
+  <div class="stat"><label>Sudah dipublikasikan</label><strong id="done">0</strong><small>Simulasi berhasil</small></div>
+  <div class="stat"><label>Tanggal terjadwal</label><strong id="dates">0</strong><small>Hari dengan konten</small></div>
+ </section>
+ <div class="planner">
+  <section class="panel" id="calendarPanel"><div class="panelhead"><div><h2>Kalender publikasi</h2><p>Pilih tanggal untuk melihat konten tersimpan.</p></div><div class="monthnav"><button class="arrow" onclick="moveMonth(-1)">‹</button><strong id="month"></strong><button class="arrow" onclick="moveMonth(1)">›</button></div></div>
+   <div class="calwrap"><div class="legend"><span><i class="todaykey"></i>Hari ini</span></div><div class="calendar" id="calendar"></div></div>
+  </section>
+  <section class="panel"><div class="panelhead"><div><h2>Jadwal tanggal terpilih</h2><p id="agendaDate"></p></div></div><div class="agenda" id="agenda"></div></section>
+ </div>
+ <section class="panel" id="allContent"><div class="panelhead"><div><h2>Semua konten</h2><p>Daftar konten cloud akan tampil setelah endpoint D1 selesai dibuat.</p></div><div class="tablefilters"><button class="filter active" data-filter="all">Semua</button><button class="filter" data-filter="scheduled">Antrean</button><button class="filter" data-filter="published">Tayang</button></div></div>
+  <div class="tablewrap"><table><thead><tr><th>VIDEO</th><th>PLATFORM</th><th>JADWAL</th><th>STATUS</th><th>AKSI</th></tr></thead><tbody id="rows"></tbody></table></div>
+ </section>
+</main></div>
+<div class="toast" id="toast"></div>
+<script>
+const API = 'https://rifpublis-api.alif-kam-12.workers.dev';
+const $ = id => document.getElementById(id);
+const now = new Date();
+const pad = n => String(n).padStart(2,'0');
+const keyDate = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parseKey = k => { const [y,m,d] = k.split('-').map(Number); return new Date(y,m-1,d); };
+const niceDate = d => d.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+let year = now.getFullYear(), month = now.getMonth(), selected = keyDate(now);
+
+function toast(message) {
+  const el = $('toast');
+  el.textContent = message;
+  el.style.display = 'block';
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(() => el.style.display = 'none', 3000);
+}
+function closeModal(id) { const el = $(id); if (el?.open) el.close(); }
+function scrollToId(id) { $(id)?.scrollIntoView({behavior:'smooth'}); }
+function moveMonth(delta) {
+  const d = new Date(year, month + delta, 1);
+  year = d.getFullYear(); month = d.getMonth(); drawCalendar();
+}
+function pickDate(key) { selected = key; drawCalendar(); drawAgenda(); }
+function drawCalendar() {
+  const first = new Date(year, month, 1);
+  const start = new Date(year, month, 1 - first.getDay());
+  $('month').textContent = first.toLocaleDateString('id-ID',{month:'long',year:'numeric'});
+  let out = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'].map(x=>`<div class="weekday">${x}</div>`).join('');
+  for (let i=0;i<42;i++) {
+    const d = new Date(start); d.setDate(start.getDate()+i);
+    const key = keyDate(d);
+    const cls = ['day', d.getMonth()!==month?'out':'', key===keyDate(now)?'today':'', key===selected?'selected':''].filter(Boolean).join(' ');
+    out += `<button class="${cls}" onclick="pickDate('${key}')"><span class="daynum">${d.getDate()}</span></button>`;
+  }
+  $('calendar').innerHTML = out;
+}
+function drawAgenda() {
+  $('agendaDate').textContent = niceDate(parseKey(selected));
+  $('agenda').innerHTML = `<div class="empty"><b>Belum ada konten.</b>Konten yang benar-benar tersimpan di cloud akan muncul di sini setelah API konten selesai disambungkan.</div>`;
+}
+async function checkBackend() {
+  const apiStatus = $('apiStatus');
+  const loginStatus = $('loginStatus');
+  try {
+    const health = await fetch(`${API}/health`, {cache:'no-store'});
+    const data = await health.json();
+    if (health.ok && data.success) {
+      apiStatus.textContent = 'API online · D1 & R2 terhubung';
+      apiStatus.className = 'connection good';
+    } else {
+      apiStatus.textContent = 'API merespons · perlu pemeriksaan database';
+      apiStatus.className = 'connection warn';
+    }
+  } catch {
+    apiStatus.textContent = 'API belum dapat dijangkau dari halaman ini';
+    apiStatus.className = 'connection warn';
+  }
+  try {
+    const response = await fetch(`${API}/auth/me`, {credentials:'include',cache:'no-store'});
+    const data = await response.json();
+    if (response.ok && data.authenticated) {
+      loginStatus.textContent = `Masuk sebagai ${data.user.email}`;
+      $('userLabel').textContent = data.user.display_name || data.user.email;
+      $('userAvatar').textContent = (data.user.display_name || data.user.email || 'R').slice(0,1).toUpperCase();
+      $('loginButton').textContent = 'Akun terhubung';
+      $('logoutButton').hidden = false;
+    } else {
+      loginStatus.textContent = 'Belum ada sesi login pada domain API';
+    }
+  } catch {
+    loginStatus.textContent = 'Status login belum bisa dibaca dari preview lokal. Perlu konfigurasi CORS dan domain Pages.';
+  }
+}
+async function logout() {
+  try {
+    await fetch(`${API}/auth/logout`, {method:'POST',credentials:'include'});
+    toast('Permintaan logout dikirim.');
+    checkBackend();
+  } catch { toast('Logout belum dapat diverifikasi dari preview ini.'); }
+}
+function openAdd() {
+  toast('Form upload belum diaktifkan: endpoint upload dan konten belum dibuat di Worker.');
+}
+function openGoogleBackup() {
+  toast('Google Login adalah autentikasi akun. Backup Google Drive belum diimplementasikan.');
+}
+function addTikTokNotice() { toast('TikTok ditambahkan ke daftar platform. OAuth dan Content Posting API belum tersambung.'); }
+
+$('loginButton').addEventListener('click', () => {
+  window.location.href = `${API}/auth/google`;
+});
+$('logoutButton').addEventListener('click', logout);
+document.querySelectorAll('[data-filter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter]').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');
+    toast('Filter akan aktif setelah API daftar konten tersedia.');
+  });
+});
+drawCalendar(); drawAgenda(); checkBackend();
+</script>
+</body></html>
